@@ -24,20 +24,34 @@ const NotebookSection = () => {
   useEffect(() => {
     const loadNotebook = async () => {
       try {
-        const response = await fetch("/BungomaCardiacCare.ipynb");
+        console.log("Attempting to fetch notebook from: /BungomaCardiacCare.ipynb");
+        const response = await fetch("/BungomaCardiacCare.ipynb", {
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
+        console.log("Response status:", response.status, response.statusText);
+        
         if (!response.ok) {
-          throw new Error(`Failed to load notebook: ${response.status} ${response.statusText}`);
+          const errorText = await response.text().catch(() => '');
+          console.error("Failed to fetch notebook. Status:", response.status, "Response:", errorText);
+          throw new Error(`Failed to load notebook: ${response.status} ${response.statusText}. Please check if the file exists in the public folder.`);
         }
+        
         const data = await response.json();
-        console.log("Notebook loaded:", data);
+        console.log("Notebook loaded successfully. Cells count:", data?.cells?.length || 0);
+        
         if (data && data.cells && Array.isArray(data.cells)) {
           setNotebook(data);
+          setError(null);
         } else {
-          throw new Error("Invalid notebook format");
+          console.error("Invalid notebook format. Data:", data);
+          throw new Error("Invalid notebook format: missing cells array");
         }
       } catch (err) {
         console.error("Error loading notebook:", err);
-        setError(err instanceof Error ? err.message : "Failed to load notebook");
+        const errorMessage = err instanceof Error ? err.message : "Failed to load notebook. Please check the browser console for details.";
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -206,16 +220,42 @@ const NotebookSection = () => {
                 
                 {error && (
                   <div className="text-center py-12">
-                    <p className="text-destructive mb-4">{error}</p>
-                    <Button variant="outline" onClick={() => window.location.reload()}>
-                      Retry
-                    </Button>
+                    <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-6 max-w-2xl mx-auto">
+                      <p className="text-destructive font-semibold mb-2">Error Loading Notebook</p>
+                      <p className="text-sm text-muted-foreground mb-4">{error}</p>
+                      <div className="flex gap-2 justify-center">
+                        <Button variant="outline" onClick={() => window.location.reload()}>
+                          Retry
+                        </Button>
+                        <Button variant="outline" asChild>
+                          <a href="/BungomaCardiacCare.ipynb" target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            Open File Directly
+                          </a>
+                        </Button>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-4">
+                        Check the browser console (F12) for more details.
+                      </p>
+                    </div>
                   </div>
                 )}
                 
                 {notebook && !loading && (
                   <div className="space-y-4">
-                    {notebook.cells.map((cell, index) => renderCell(cell, index))}
+                    {notebook.cells && notebook.cells.length > 0 ? (
+                      notebook.cells.map((cell, index) => renderCell(cell, index))
+                    ) : (
+                      <div className="text-center py-12">
+                        <p className="text-muted-foreground">No cells found in the notebook.</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                
+                {!loading && !error && !notebook && (
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">Unable to load notebook content.</p>
                   </div>
                 )}
               </div>
