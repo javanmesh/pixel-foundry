@@ -35,7 +35,7 @@ const Overview = () => {
               <div className="absolute inset-0 bg-gradient-hero opacity-20 blur-3xl rounded-full"></div>
               <Card className="relative overflow-hidden shadow-elevated">
                 <img 
-                  src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80" 
+                  src="/plot_final_map.png" 
                   alt="Healthcare facility optimization visualization" 
                   className="w-full h-auto object-cover"
                 />

@@ -29,12 +29,8 @@ const Index = () => {
               description="This visualization displays a heatmap of the population density across Bungoma County alongside existing referral hospitals that provide emergency cardiac care. It highlights areas with high demand for specialized cardiac services."
               images={[
                 {
-                  src: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1200&q=80",
+                  src: "/plot_population_density.png",
                   alt: "Population Density Analysis"
-                },
-                {
-                  src: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80",
-                  alt: "Hospital Locations Map"
                 }
               ]}
             />
@@ -44,11 +40,11 @@ const Index = () => {
               description="The 15-minute isochrone map illustrates areas reachable within 15 minutes from referral hospitals offering emergency cardiac care. After clipping and merging overlapping isochrones, the resulting map shows consolidated coverage zones, enabling a clear evaluation of healthcare accessibility."
               images={[
                 {
-                  src: "https://images.unsplash.com/photo-1516841273335-e39b37888115?auto=format&fit=crop&w=1200&q=80",
+                  src: "/plot_isochrones.png",
                   alt: "15-Minute Isochrones"
                 },
                 {
-                  src: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=80",
+                  src: "/plot_merged_isochrones.png",
                   alt: "Merged Coverage Zones"
                 }
               ]}
@@ -60,11 +56,11 @@ const Index = () => {
               description="Potential candidate sites were identified using a grid-based approach and proximity to major roads. These sites were evaluated for their capacity to maximize coverage for referral hospitals offering emergency cardiac care."
               images={[
                 {
-                  src: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=1200&q=80",
+                  src: "/plot_candidate_sites.png",
                   alt: "Candidate Site Selection Grid"
                 },
                 {
-                  src: "https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1200&q=80",
+                  src: "/plot_candidate_sites2.png",
                   alt: "Road Network Analysis"
                 }
               ]}
@@ -75,11 +71,11 @@ const Index = () => {
               description="The final step applies the MCLP with distance decay functions to determine the optimal locations for new referral hospitals specializing in emergency cardiac care. This visualization shows the selected candidate sites that maximize patient coverage."
               images={[
                 {
-                  src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+                  src: "/plot_optimization_results.png",
                   alt: "Optimization Results"
                 },
                 {
-                  src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+                  src: "/plot_coverage_level.png",
                   alt: "Coverage Level Analysis"
                 }
               ]}
@@ -91,7 +87,7 @@ const Index = () => {
               description="The final map overlays the optimized candidate sites with existing referral hospitals and population density, offering a comprehensive view of strategic facility placement for emergency cardiac care."
               images={[
                 {
-                  src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
+                  src: "/plot_final_map.png",
                   alt: "Final Optimized Map"
                 }
               ]}
